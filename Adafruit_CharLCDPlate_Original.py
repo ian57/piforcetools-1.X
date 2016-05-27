@@ -10,7 +10,6 @@
 
 from Adafruit_I2C import Adafruit_I2C
 from time import sleep
-from config import ADAFRUIT_SCREEN
 
 class Adafruit_CharLCDPlate(Adafruit_I2C):
 
@@ -34,15 +33,14 @@ class Adafruit_CharLCDPlate(Adafruit_I2C):
 
     # LED colors
     OFF                     = 0x00
-    ON			    = 0x01
-    RED                     = 0x02 + ON
-    GREEN                   = 0x04 + ON
-    BLUE                    = 0x08 + ON
-    YELLOW                  = (RED + GREEN) | ON
-    TEAL                    = (GREEN + BLUE) | ON
-    VIOLET                  = (RED + BLUE ) | ON
-    WHITE                   = (RED + GREEN + BLUE ) |ON
-    #ON                      = 0xff
+    RED                     = 0x01
+    GREEN                   = 0x02
+    BLUE                    = 0x04
+    YELLOW                  = RED + GREEN
+    TEAL                    = GREEN + BLUE
+    VIOLET                  = RED + BLUE
+    WHITE                   = RED + GREEN + BLUE
+    ON                      = RED + GREEN + BLUE
 
     # LCD Commands
     LCD_CLEARDISPLAY        = 0x01
@@ -94,65 +92,32 @@ class Adafruit_CharLCDPlate(Adafruit_I2C):
         self.i2c.bus.write_byte_data(
           self.i2c.address, self.MCP23017_IOCON_BANK1, 0)
 
-        if ADAFRUIT_SCREEN == 1:
-          # Brute force reload ALL registers to known state.  This also
-          # sets up all the input pins, pull-ups, etc. for the Pi Plate.
-          self.i2c.bus.write_i2c_block_data(
-            self.i2c.address, 0, 
-            [ #0b00011111,   # IODIRA    R+G LEDs=outputs, buttons=inputs ,modify by ArduinoKinga
-              #Adafruit
-              0b00111111,   # IODIRA
-              self.ddrb ,   # IODIRB    LCD D7=input, Blue LED=output
-              0b00111111,   # IPOLA     Invert polarity on button inputs
-              0b00000000,   # IPOLB
-              0b00000000,   # GPINTENA  Disable interrupt-on-change
-              0b00000000,   # GPINTENB
-              0b00000000,   # DEFVALA
-              0b00000000,   # DEFVALB
-              0b00000000,   # INTCONA
-              0b00000000,   # INTCONB
-              0b00000000,   # IOCON
-              0b00000000,   # IOCON
-              0b00011111,   # GPPUA     Enable pull-ups on buttons ,modify by ArduinoKing
-              0b00000000,   # GPPUB
-              0b00000000,   # INTFA
-              0b00000000,   # INTFB
-              0b00000000,   # INTCAPA
-              0b00000000,   # INTCAPB
-              self.porta,   # GPIOA
-              self.portb,   # GPIOB
-              self.porta,   # OLATA     0 on all outputs; side effect of
-              self.portb ]) # OLATB     turning on R+G+B backlight LEDs.
-        else:
-          # Brute force reload ALL registers to known state.  This also
-          # sets up all the input pins, pull-ups, etc. for the Pi Plate.
-          self.i2c.bus.write_i2c_block_data(
-            self.i2c.address, 0,
-            [ 0b00011111,   # IODIRA    R+G LEDs=outputs, buttons=inputs ,modify by ArduinoKinga
-              #Adafruit
-              #0b00111111,   # IODIRA
-              self.ddrb ,   # IODIRB    LCD D7=input, Blue LED=output
-              0b00111111,   # IPOLA     Invert polarity on button inputs
-              0b00000000,   # IPOLB
-              0b00000000,   # GPINTENA  Disable interrupt-on-change
-              0b00000000,   # GPINTENB
-              0b00000000,   # DEFVALA
-              0b00000000,   # DEFVALB
-              0b00000000,   # INTCONA
-              0b00000000,   # INTCONB
-              0b00000000,   # IOCON
-              0b00000000,   # IOCON
-              0b00011111,   # GPPUA     Enable pull-ups on buttons ,modify by ArduinoKing
-              0b00000000,   # GPPUB
-              0b00000000,   # INTFA
-              0b00000000,   # INTFB
-              0b00000000,   # INTCAPA
-              0b00000000,   # INTCAPB
-              self.porta,   # GPIOA
-              self.portb,   # GPIOB
-              self.porta,   # OLATA     0 on all outputs; side effect of
-              self.portb ]) # OLATB     turning on R+G+B backlight LEDs.
-
+        # Brute force reload ALL registers to known state.  This also
+        # sets up all the input pins, pull-ups, etc. for the Pi Plate.
+        self.i2c.bus.write_i2c_block_data(
+          self.i2c.address, 0, 
+          [ 0b00111111,   # IODIRA    R+G LEDs=outputs, buttons=inputs
+            self.ddrb ,   # IODIRB    LCD D7=input, Blue LED=output
+            0b00111111,   # IPOLA     Invert polarity on button inputs
+            0b00000000,   # IPOLB
+            0b00000000,   # GPINTENA  Disable interrupt-on-change
+            0b00000000,   # GPINTENB
+            0b00000000,   # DEFVALA
+            0b00000000,   # DEFVALB
+            0b00000000,   # INTCONA
+            0b00000000,   # INTCONB
+            0b00000000,   # IOCON
+            0b00000000,   # IOCON
+            0b00111111,   # GPPUA     Enable pull-ups on buttons
+            0b00000000,   # GPPUB
+            0b00000000,   # INTFA
+            0b00000000,   # INTFB
+            0b00000000,   # INTCAPA
+            0b00000000,   # INTCAPB
+            self.porta,   # GPIOA
+            self.portb,   # GPIOB
+            self.porta,   # OLATA     0 on all outputs; side effect of
+            self.portb ]) # OLATB     turning on R+G+B backlight LEDs.
 
         # Switch to Bank 1 and disable sequential operation.
         # From this point forward, the register addresses do NOT match
@@ -450,15 +415,9 @@ class Adafruit_CharLCDPlate(Adafruit_I2C):
 
     def backlight(self, color):
         c          = ~color
-
-        if ADAFRUIT_SCREEN == 1:
-          self.porta = (self.porta & 0b00111111) | ((c & 0b011) << 6)
-          self.portb = (self.portb & 0b11111110) | ((c & 0b100) >> 2)
-        else:
-          self.porta = (self.porta & 0b00011111) | ((c & 0b0111) << 5)  #modify by ArduinoKing
-          self.portb = (self.portb & 0b11111110) | ((c & 0b1000) >> 3)  #modify by ArduinoKing
-        
-	# Has to be done as two writes because sequential operation is off.
+        self.porta = (self.porta & 0b00111111) | ((c & 0b011) << 6)
+        self.portb = (self.portb & 0b11111110) | ((c & 0b100) >> 2)
+        # Has to be done as two writes because sequential operation is off.
         self.i2c.bus.write_byte_data(
           self.i2c.address, self.MCP23017_GPIOA, self.porta)
         self.i2c.bus.write_byte_data(
