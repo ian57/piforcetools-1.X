@@ -5,6 +5,16 @@ import triforcetools
 from time import sleep
 from Adafruit_CharLCDPlate import Adafruit_CharLCDPlate
 
+# Importing configuration file & labels
+try:
+    from labels import *
+    from config import *
+except (SyntaxError, ImportError) as e:
+    lcd.clear()
+    print str(e)
+    lcd.message("Error reading \nconfig files")
+    sys.exit(1)
+
 # Define a signal handler to turn off LCD before shutting down
 def handler(signum = None, frame = None):
     lcd = Adafruit_CharLCDPlate()
@@ -32,16 +42,6 @@ lcd.noBlink()
 col = (('Red' , lcd.RED) , ('Yellow', lcd.YELLOW), ('Green' , lcd.GREEN),
       ('Teal', lcd.TEAL), ('Blue'  , lcd.BLUE)  , ('Violet', lcd.VIOLET),
       ('On'    , lcd.ON))
-
-# Importing configuration file & labels
-try:
-    from labels import *
-    from config import *
-except (SyntaxError, ImportError) as e:
-    lcd.clear()
-    print str(e)
-    lcd.message("Error reading \nconfig files")
-    sys.exit(1)
 
 # DO NOT MODIFY THIS
 HEART = [0B00000, 0B00000, 0B01010, 0B11111, 0B11111, 0B01110, 0B00100, 0B00000]
@@ -962,12 +962,25 @@ while True:
                 triforcetools.DIMM_UploadFile(ROM_DIR + current_game_list[SHOW_GAMES_idx][1][FILENAME])
                 triforcetools.HOST_Restart()
                 triforcetools.TIME_SetLimit(10*60*1000)
-                triforcetools.disconnect()
+                #triforcetools.disconnect()
                 lcd.ToggleBlink()
                 lcd.clear()
                 lcd.message(LABELS[LANGUAGE][TRANSFER_COMPLETE])
                 lcd.backlight(lcd.YELLOW)
                 sleep(SLEEP_AFTER_MESSAGE)
+                if SECURITY_CHIP == 0:
+                  while not (button == SHORT_SELECT):
+                    # set time limit to 10h. According to some reports, this does not work.
+                    lcd.backlight(lcd.VIOLET)
+                    triforcetools.TIME_SetLimit(10*60*1000)
+                    lcd.clear()
+                    lcd.message(LABELS[LANGUAGE][PLAYING])
+                    sleep(1)
+                    lcd.clear()
+                    lcd.message(LABELS[LANGUAGE][AFTER_PLAYING])
+                    sleep(1)
+
+                triforcetools.disconnect()
                 lcd.clear()
                 show_game(current_game_list[SHOW_GAMES_idx])
             else:

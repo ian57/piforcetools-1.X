@@ -46,6 +46,8 @@ CONNECTING = "CONNECTING"
 CONNECT_FAILED = "CONNECT_FAILED"
 SENDING = "SENDING"
 TRANSFER_COMPLETE = "TRANSFER_COMPLETE"
+PLAYING = "PLAYING"
+AFTER_PLAYING = "AFTER_PLAYING" 
 PINGING = "PINGING"
 PING_SUCCESS = "PING_SUCCESS"
 PING_FAILED = "PING_FAILED"
@@ -84,6 +86,8 @@ LABELS = {
                 CONNECT_FAILED: "Erreur de\nconnexion",
                 SENDING: "Envoi...",
                 TRANSFER_COMPLETE: "Transfert\nfini",
+                PLAYING: "Jeu en cours...",
+                AFTER_PLAYING: "Appuyer Select\n pour changer",
                 PINGING: "Ping de",
                 PING_SUCCESS: "Ping reussi",
                 PING_FAILED: "Ping sans\nreponse",
@@ -124,6 +128,8 @@ LABELS = {
                 CONNECT_FAILED: "Error:\nConnect Failed",
                 SENDING: "Sending...",
                 TRANSFER_COMPLETE: "Transfer\nComplete!",
+                PLAYING: "Now Playing",
+                AFTER_PLAYING: "Press select\nto change game",
                 PINGING: "Pinging",
                 PING_SUCCESS: "Ping success",
                 PING_FAILED: "Ping failed",
@@ -132,7 +138,7 @@ LABELS = {
                 NOTHING_TO_SHOW: "Nothing to\nshow",
                 NO_FAVORITES_DEFINED: "No favorites",
                 NO_SYSTEM_DEFINED: "No system\ndefined",
-                UNKNOWN_ROMS: "UNKNOW ROMS",
+                UNKNOWN_ROMS: "UNKNOWN ROMS",
                 SHUTDOWN: "SHUTDOWN",
                 SHUTDOWN_MESSAGE: "System's halting\nPlease Wait... ",
                 NO_ORPHAN_GAMES: "No game\nwithout rom",

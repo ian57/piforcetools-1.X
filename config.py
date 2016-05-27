@@ -19,6 +19,8 @@ SLEEP_AFTER_SHORT_PRESS = 0.2
 SLEEP_AFTER_MESSAGE = 2
 SLEEP_AFTER_LCD_ON = 0.2
 TEMPO_LCD_OFF = 15
+SECURITY_CHIP = 1
+ADAFRUIT_SCREEN = 0
 
 # Use these settings to set an action to a key. You can also try the alternative settings.
 TOP_VIEW_NEXT_ITEM = SHORT_RIGHT
@@ -110,20 +112,20 @@ UNKNOWN_ROMS_CHOOSE_GAME_RETURN_TOP_VIEW = NO_BUTTON_TO_SPECIFY
 
 # List of your systems with the IPs. You have to change this setting depending on your systems, but keep in mind 
 # to also change the "SYSTEMS" item on each game system categories. 
-#SYSTEMS_FOR_UPLOAD = { 
-#        "Naomi 1 #1":   "192.168.1.2",
-#        "Naomi 1 #2":   "192.168.1.3",
-#        "Naomi 1 #3":   "192.168.1.4",
-#        "Naomi 1 #4":   "192.168.1.5",
-#    }
-
 SYSTEMS_FOR_UPLOAD = { 
         "Naomi 1 #1":   "192.168.1.2",
-        "Naomi 2 #1":   "192.168.1.3",
-        "Naomi 2 #2":   "192.168.1.4",
-        "Naomi 2 #3":   "192.168.1.5",
-        "Triforce #1":  "192.168.1.6",
-        "Chihiro":      "192.168.1.7"
+        "Naomi 1 #2":   "192.168.1.3",
+        "Naomi 1 #3":   "192.168.1.4",
+        "Naomi 1 #4":   "192.168.1.5",
+    }
+
+#SYSTEMS_FOR_UPLOAD = { 
+#        "Naomi 1 #1":   "192.168.1.2",
+#        "Naomi 2 #1":   "192.168.1.3",
+#        "Naomi 2 #2":   "192.168.1.4",
+#        "Naomi 2 #3":   "192.168.1.5",
+#        "Triforce #1":  "192.168.1.6",
+#        "Chihiro":      "192.168.1.7"
 
 # Set absolute path of rom files ending with trailing /
 ROM_DIR = "/home/pi/roms/"  
@@ -132,7 +134,7 @@ ROM_DIR = "/home/pi/roms/"
 FAVORITES_FILE = "/boot/piforcetools/favorites"  
 
 # Set it to one of the language defined in "LABELS"
-LANGUAGE = "fr"
+LANGUAGE = "en"
 
 # Wether the welcome message is shown or not
 SHOW_WELCOME_MESSAGE = True
