@@ -47,10 +47,7 @@ When plugging the LCD plate on the Raspberry Pi you need to take care that the b
 
 ## Usage
 
-Left/Right buttons determine Game mode or Command mode respectively.  Up/Down navigate items within a mode.  Select button will select the item being displayed.  In Command mode, the following commands can be used:
-
-1. Change Target - By default, you can send binaries to up to 4 nodes, configured at 192.168.1.2, 192.168.1.3, 192.168.1.4, 192.168.1.5.  Each time you select Change Target, the target will be changed.
-2. Ping Netdimm - To test if the Netdimm is reachable via a ping.  
+Left/Right buttons allows to select the item in the top view menu : Games by systems, by type, Favorites (need a files to describe favorite games), All games, Ping netdimm and shutdown.  Up/Down navigate items within each mode.  A short press on the Select button will select the item being displayed. A long press on the Select Button will take you in the upper level of the menu.
 
 ## Getting Started
 
