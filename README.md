@@ -6,12 +6,26 @@ PiforceTools
 ============
 
 Piforce Tools drives a Raspberry Pi with Adafruit LCD Plate and interfaces with debugmode's triforce tools to load a NetDIMM board with binaries for a Triforce, Naomi, or Chihiro arcade system.  
-it is working with the adafruit LCD module 16x2 LCD Plate - http://learn.adafruit.com/adafruit-16x2-character-lcd-plus-keypad-for-raspberry-pi, and chinese clone from DX http://www.dx.com/fr/p/rgb-negative-16-x-2-lcd-keypad-kit-for-raspberry-pi-black-297384#.Vw-fkHWLTRZ but you need to modify the file Adafruit_CharLCDPlate.py, at line 99 like this 
+It is working with the adafruit LCD module 16x2 LCD Plate - http://learn.adafruit.com/adafruit-16x2-character-lcd-plus-keypad-for-raspberry-pi, and chinese clone from DX http://www.dx.com/fr/p/rgb-negative-16-x-2-lcd-keypad-kit-for-raspberry-pi-black-297384#.Vw-fkHWLTRZ but you need to modify the file Adafruit_CharLCDPlate.py, at line 99 like this 
 Code:
 
 ~~~~~~
 0b00011111, # IODIRA R+G LEDs=outputs, buttons=inputs
 ~~~~~~
+
+##News
+
+The last release of Piforcetools take into account the presence or not of the security chip/zero key on the Naomi system and the type of LCD screen via 2 variables in the config.py file.
+In the case of the abscence of the security chip/zero key the naomi reboots juste after loading the game in memory. The Raspberry Pi close the connection with the naomi, and because of the lack of the chip the naomi reboots. I you used the game upload through a PC, this was not the case the PC was keeping the connection open, preventing the naomi to reboots. 
+
+By changing the variable SECURITY_CHIP = 1 to SECURITY_CHIP = 0 in config.pi, you will tell the piforcetools program to keep the connection during playing.
+
+By changing the ADAFRUIT_SCREEN = 0 to ADAFRUIT_SCREEN = 1, you will configure the piforcetools program for Adafruit LCD plate. Keeping it to 0, will configure the program for the chinise clones with LED.
+
+If you put your roms in /boot/roms you'll need to change the ROM_DIR = "/home/pi/roms/"  variable to ROM_DIR = "/boot/roms/"  
+
+Severals others configurations can be made in the config.py program. Put an eye on it ;).
+
 ## Enhanced clone of Piforcetools from Amosso75
 https://github.com/amosso75/piforcetools
 The release from Amosso75 added : 
