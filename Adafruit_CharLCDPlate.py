@@ -10,6 +10,7 @@
 
 from Adafruit_I2C import Adafruit_I2C
 from time import sleep
+from config import ADAFRUIT_SCREEN
 
 class Adafruit_CharLCDPlate(Adafruit_I2C):
 
@@ -93,32 +94,65 @@ class Adafruit_CharLCDPlate(Adafruit_I2C):
         self.i2c.bus.write_byte_data(
           self.i2c.address, self.MCP23017_IOCON_BANK1, 0)
 
-        # Brute force reload ALL registers to known state.  This also
-        # sets up all the input pins, pull-ups, etc. for the Pi Plate.
-        self.i2c.bus.write_i2c_block_data(
-          self.i2c.address, 0, 
-          [ 0b00011111,   # IODIRA    R+G LEDs=outputs, buttons=inputs ,modify by ArduinoKing
-            self.ddrb ,   # IODIRB    LCD D7=input, Blue LED=output
-            0b00111111,   # IPOLA     Invert polarity on button inputs
-            0b00000000,   # IPOLB
-            0b00000000,   # GPINTENA  Disable interrupt-on-change
-            0b00000000,   # GPINTENB
-            0b00000000,   # DEFVALA
-            0b00000000,   # DEFVALB
-            0b00000000,   # INTCONA
-            0b00000000,   # INTCONB
-            0b00000000,   # IOCON
-            0b00000000,   # IOCON
-            0b00011111,   # GPPUA     Enable pull-ups on buttons ,modify by ArduinoKing
-            0b00000000,   # GPPUB
-            0b00000000,   # INTFA
-            0b00000000,   # INTFB
-            0b00000000,   # INTCAPA
-            0b00000000,   # INTCAPB
-            self.porta,   # GPIOA
-            self.portb,   # GPIOB
-            self.porta,   # OLATA     0 on all outputs; side effect of
-            self.portb ]) # OLATB     turning on R+G+B backlight LEDs.
+        if ADAFRUIT_SCREEN == 1:
+          # Brute force reload ALL registers to known state.  This also
+          # sets up all the input pins, pull-ups, etc. for the Pi Plate.
+          self.i2c.bus.write_i2c_block_data(
+            self.i2c.address, 0, 
+            [ #0b00011111,   # IODIRA    R+G LEDs=outputs, buttons=inputs ,modify by ArduinoKinga
+              #Adafruit
+              0b00111111,   # IODIRA
+              self.ddrb ,   # IODIRB    LCD D7=input, Blue LED=output
+              0b00111111,   # IPOLA     Invert polarity on button inputs
+              0b00000000,   # IPOLB
+              0b00000000,   # GPINTENA  Disable interrupt-on-change
+              0b00000000,   # GPINTENB
+              0b00000000,   # DEFVALA
+              0b00000000,   # DEFVALB
+              0b00000000,   # INTCONA
+              0b00000000,   # INTCONB
+              0b00000000,   # IOCON
+              0b00000000,   # IOCON
+              0b00011111,   # GPPUA     Enable pull-ups on buttons ,modify by ArduinoKing
+              0b00000000,   # GPPUB
+              0b00000000,   # INTFA
+              0b00000000,   # INTFB
+              0b00000000,   # INTCAPA
+              0b00000000,   # INTCAPB
+              self.porta,   # GPIOA
+              self.portb,   # GPIOB
+              self.porta,   # OLATA     0 on all outputs; side effect of
+              self.portb ]) # OLATB     turning on R+G+B backlight LEDs.
+        else:
+          # Brute force reload ALL registers to known state.  This also
+          # sets up all the input pins, pull-ups, etc. for the Pi Plate.
+          self.i2c.bus.write_i2c_block_data(
+            self.i2c.address, 0,
+            [ 0b00011111,   # IODIRA    R+G LEDs=outputs, buttons=inputs ,modify by ArduinoKinga
+              #Adafruit
+              #0b00111111,   # IODIRA
+              self.ddrb ,   # IODIRB    LCD D7=input, Blue LED=output
+              0b00111111,   # IPOLA     Invert polarity on button inputs
+              0b00000000,   # IPOLB
+              0b00000000,   # GPINTENA  Disable interrupt-on-change
+              0b00000000,   # GPINTENB
+              0b00000000,   # DEFVALA
+              0b00000000,   # DEFVALB
+              0b00000000,   # INTCONA
+              0b00000000,   # INTCONB
+              0b00000000,   # IOCON
+              0b00000000,   # IOCON
+              0b00011111,   # GPPUA     Enable pull-ups on buttons ,modify by ArduinoKing
+              0b00000000,   # GPPUB
+              0b00000000,   # INTFA
+              0b00000000,   # INTFB
+              0b00000000,   # INTCAPA
+              0b00000000,   # INTCAPB
+              self.porta,   # GPIOA
+              self.portb,   # GPIOB
+              self.porta,   # OLATA     0 on all outputs; side effect of
+              self.portb ]) # OLATB     turning on R+G+B backlight LEDs.
+
 
         # Switch to Bank 1 and disable sequential operation.
         # From this point forward, the register addresses do NOT match
