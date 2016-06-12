@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo/netboot_only.png" width="350"/>
+</p>
+
 PiforceTools
 ============
 
