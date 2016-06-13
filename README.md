@@ -66,11 +66,15 @@ You will need the following items to use Piforce Tools:
 
 ## Installation
 
-Now you are finally ready to install Piforce Tools.
+Now you are finally ready to install my Piforce Tools.
 
-1. Downlad the piforce tools SD card image: http://downloads.travistyoj.com/piforcetools.img.zip
+1. Downlad the gzipped piforce tools SD card image: https://mega.nz/#!DpsFDJQQ!sZW1l0XPlT1KzTMERJL_R3v8Fiv2L60r4GEvhodYms8
 2. Extract .img file, and use imager tool to write it to your SD card.  If you are using Windows, look for Win32DiskImager.  If you are using Linux or Mac OS, you will use the command line tool dd.  Imaging an SD card is easy, but here is some more information - http://elinux.org/ArchLinux_Install_Guide
-3. Use a partition manager tool like Partition Wizard to move the Ext4 partition to the end of the card, and resize the FAT partition to use all unallocated space: http://www.partitionwizard.com/free-partition-manager.html
+3. Use Linux and a SDcard reader to put the roms in the /home/pi/roms directory
+4. The IP adresse is 192.168.1.1. If you need to access via SSH, use the login "pi" with the password "pi". To become root, just use sudo -s with the password "pi".
+5. TODO : NEED to resize and move the ext4 partition to the end of the SD, and extend FAT. The boot/roms directory is a easier place for windows users!
+
+3. a partition manager tool like Partition Wizard to move the Ext4 partition to the end of the card, and resize the FAT partition to use all unallocated space: http://www.partitionwizard.com/free-partition-manager.html
 4. Load up ROMs in the "roms" directory.
 
 ## Troubleshooting
