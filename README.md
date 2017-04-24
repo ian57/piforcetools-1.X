@@ -82,7 +82,7 @@ You will need the following items to use Piforce Tools:
 
 Now you are finally ready to install my Piforce Tools.
 
-1. Downlad the gzipped piforce tools SD card image: https://mega.nz/#!DpsFDJQQ!sZW1l0XPlT1KzTMERJL_R3v8Fiv2L60r4GEvhodYms8
+1. Downlad the gzipped piforce tools SD card image: https://mega.nz/#!m8EFBABC!yVpT8J8WwMtGW5qdv2XUmLRUEocPyNPzPxuTVicTS_g
 2. Extract .img file, and use imager tool to write it to your SD card.  If you are using Windows, look for Win32DiskImager.  If you are using Linux or Mac OS, you will use the command line tool dd.  Imaging an SD card is easy, but here is some more information - http://elinux.org/ArchLinux_Install_Guide
 3. Use Linux and a SDcard reader to put the roms in the /home/pi/roms directory
 4. The IP adresse is 192.168.1.1. If you need to access via SSH, use the login "pi" with the password "pi". To become root, just use sudo -s with the password "pi".
