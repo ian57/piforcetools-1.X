@@ -13,7 +13,8 @@ Code:
 0b00011111, # IODIRA R+G LEDs=outputs, buttons=inputs
 ~~~~~~
 
-##News
+News
+======
 
 The last release of Piforcetools take into account the presence or not of the security chip/zero key on the Naomi system and the type of LCD screen via 2 variables in the config.py file.
 In the case of the abscence of the security chip/zero key the naomi reboots juste after loading the game in memory. The Raspberry Pi close the connection with the naomi, and because of the lack of the chip the naomi reboots. I you used the game upload through a PC, this was not the case the PC was keeping the connection open, preventing the naomi to reboots. 
